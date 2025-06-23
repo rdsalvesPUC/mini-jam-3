@@ -150,7 +150,7 @@ if (this.phase === "countdown") {
 
 		// 2) Água: começa em C.LAKE_Y + C.H (fora do quadro no início);
 		//    entra no viewport conforme camY cresce.
-		drawWater(p);
+		drawWater(p, this.depthLimitPx);
 
 		// 3) Linha + anzol + peixes (só durante 'play')
 		if (this.phase === "play") {

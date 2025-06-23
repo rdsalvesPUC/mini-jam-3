@@ -5,11 +5,14 @@ export function drawSurface(p, imgBG) {
   p.image(imgBG, 0, 0, C.W, C.H);
 }
 
-/* --- ÁGUA --- */
-export function drawWater(p) {
-  // começa 600 px abaixo da linha d’água (fora da viewport inicial)
-  const top = C.H;           // 200 + 600 = 800 em coordenadas do mundo
+/**
+ * Desenha o retângulo de água proporcional à profundidade máxima.
+ * @param {p5} p
+ * @param {number} depthPx profundidade-limite em pixels
+ */
+export function drawWater(p, depthPx) {
+  const top = C.H;                 // y onde começa a água (600)
   p.fill("#07819C");
-  p.noStroke();
-  p.rect(0, top, C.W, C.H * 4);         // bastante altura para fundo
+  // altura: profundidade inteira + 1 tela extra de folga
+  p.rect(0, top, C.W, depthPx + C.H);
 }
