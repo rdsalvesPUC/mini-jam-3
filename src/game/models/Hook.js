@@ -12,7 +12,7 @@ export default class Hook {
     this.vy       = C.DESC_SPEED_PX;
     this.hitsDown = 0;
     this.hooked   = [];    // peixes fisgados (subida)
-    this.state    = "descending"; // ou 'ascending'
+    this.state    = "waiting"; // ou 'ascending'
   }
 
   update() {

@@ -21,11 +21,26 @@ export default class GameController {
     this.hud       = new HUD(p, this.hook);
     this.fishes    = [];
     this.score     = 0;
-    this.flashTimer= 0;
+    this.flashTimer = 0;
+    
+    this.started      = false;      // aguardando contagem regressiva
+this.countdownMs  = 5000;       // 5 s
+this.startTime    = p.millis();
   }
 
   update() {
     const p = this.p;
+
+    if (!this.started) {
+  const elapsed = this.p.millis() - this.startTime;
+  this.countdownMs = 5000 - elapsed;
+  if (this.countdownMs <= 0) {
+    this.started = true;
+    this.hook.state = "descending";   // libera a física normal
+  }
+  // enquanto não começou, nada a atualizar além disso
+  return;
+}
 
     // movimento horizontal do anzol
     if (p.keyIsDown(p.LEFT_ARROW))  this.hook.x -= 4;
@@ -111,5 +126,16 @@ export default class GameController {
 
     // 4) HUD por cima de tudo
     this.hud.draw(this.score);
+
+    if (!this.started) {
+  const p = this.p;
+  const sec = Math.ceil(this.countdownMs / 1000);
+  p.fill(0, 180);
+  p.rect(0, 0, C.W, C.H);            // escurece a tela
+  p.fill(255);
+  p.textAlign(p.CENTER, p.CENTER);
+  p.textSize(64);
+  p.text(sec, C.W / 2, C.H / 2);
+}
   }
 }
