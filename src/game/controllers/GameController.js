@@ -18,7 +18,8 @@ export default class GameController {
 		this.imgHook = assets.hook;
 
 		this.hook = new Hook(p);
-		this.spawner = new Spawner(p, { easy: 0.015, medium: 0.025, hard: 0.035 }[difficulty]);
+		const spawn = { easy: 0.015, medium: 0.025, hard: 0.035 }[difficulty];
+		this.spawner = new Spawner(p, spawn, assets.fishes);
 		this.hud = new HUD(p, this.hook);
 		this.fishes = [];
 		this.score = 0;
