@@ -29,11 +29,15 @@ export default class GameController {
 		this.phase = "countdown"; // 'countdown' → 'play'
 		this.countdownMs = 5000;
 		this.startTime = p.millis();
+
+		this.ended      = false;
 	}
 
 	update() {
 		const p = this.p;
 		const now = p.millis();
+
+		if (this.ended) return;
 
 		/* ----- Fase de CONTAGEM ----- */
 		if (this.phase === "countdown") {
@@ -105,7 +109,9 @@ export default class GameController {
 
 		// fim de rodada
 		if (this.hook.state === "ascending" && this.hook.y <= C.LAKE_Y + 5) {
-			this.onGameOver();
+			this.onGameOver(this.score);
+			this.onGameOver(this.score);
+			this.ended = true;
 		}
 	}
 
@@ -121,22 +127,22 @@ export default class GameController {
 		drawRod(p, this.imgRod);
 
 		/* 3. contador antes de mergulhar */
-if (this.phase === "countdown") {
-  const sec = Math.ceil(this.countdownMs / 1000);
+		if (this.phase === "countdown") {
+			const sec = Math.ceil(this.countdownMs / 1000);
 
-  // desenha overlay escuro + número
-  p.fill(0, 180);
-  p.rect(0, 0, C.W, C.H);
-  p.fill(255);
-  p.textAlign(p.CENTER, p.CENTER);
-  p.textSize(64);
-  p.text(sec, C.W / 2, C.H / 2);
+			// desenha overlay escuro + número
+			p.fill(0, 180);
+			p.rect(0, 0, C.W, C.H);
+			p.fill(255);
+			p.textAlign(p.CENTER, p.CENTER);
+			p.textSize(64);
+			p.text(sec, C.W / 2, C.H / 2);
 
-  /* --- HUD por cima do overlay --- */
-  this.hud.draw(this.score);
+			/* --- HUD por cima do overlay --- */
+			this.hud.draw(this.score);
 
-  return;                 // encerra frame; nada submerso ainda
-}
+			return; // encerra frame; nada submerso ainda
+		}
 
 		/* ----- MUNDO ROLÁVEL (superfície + água + peixes) ----- */
 		const camY = this.hook.y - C.H * 0.35;

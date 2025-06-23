@@ -79,3 +79,86 @@
 	border: none;
 	cursor: pointer;
 }
+
+/* centraliza verticalmente */
+.game-container.flex-col {
+	width: 360px;
+	height: 600px;
+	margin: 0 auto;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
+
+.go-title {
+	font: bold 40px/1 monospace;
+	color: #fff;
+	margin-bottom: 24px;
+}
+
+.go-score {
+	font: 20px monospace;
+	color: #fff;
+	margin-bottom: 32px;
+}
+
+.go-btn {
+	width: 220px;
+	padding: 10px 0;
+	margin-bottom: 16px;
+	font: 18px monospace;
+	border: none;
+	border-radius: 6px;
+	background: #ff9b00;
+	color: #000;
+	cursor: pointer;
+}
+
+.go-btn.sec {
+	background: #ccc;
+}
+
+/* overlay ocupa toda a tela do jogo */
+.go-overlay {
+	position: absolute;
+	inset: 0;
+	/* top/left/right/bottom 0 */
+	background: rgba(0, 0, 0, 0.6);
+	/* igual ao contador */
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	gap: 24px;
+}
+
+.go-overlay h1 {
+	font: bold 48px monospace;
+	color: #fff;
+	margin: 0;
+}
+
+.go-score {
+	font: 24px monospace;
+	color: #fff;
+}
+
+.go-overlay button {
+	width: 220px;
+	padding: 10px 0;
+	font: 18px monospace;
+	border: none;
+	border-radius: 6px;
+	cursor: pointer;
+}
+
+.go-overlay button:not(.sec) {
+	background: #ff9b00;
+	color: #000;
+}
+
+.go-overlay button.sec {
+	background: #ccc;
+	color: #000;
+}
