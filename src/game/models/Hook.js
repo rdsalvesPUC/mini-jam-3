@@ -32,13 +32,13 @@ export default class Hook {
     // 1) Linha do anzol (do fim da vara até o anzol)
     const tx = 70 + 150 * p.cos(-p.PI / 8);
     const ty = 100 + 150 * p.sin(-p.PI / 8);
-    p.stroke(255);
+    p.stroke('red');
     p.strokeWeight(2);
     p.line(tx, ty, this.x, this.y);
 
     // 2) Anzol (triângulo branco)
     p.noStroke();
-    p.fill(255);
+    p.fill('red');
     p.triangle(
       this.x - 6, this.y,
       this.x + 6, this.y,

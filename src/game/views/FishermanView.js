@@ -5,7 +5,7 @@
  */
 export function drawFisherman(p, imgFisher) {
   // ajuste x/y e escala conforme seu layout antigo
-  const x = 20, y = 50, w = 120, h = 120;
+  const x = 5, y = 270, w = 130, h = 130;
   p.image(imgFisher, x, y, w, h);
 }
 
@@ -16,9 +16,10 @@ export function drawFisherman(p, imgFisher) {
  */
 export function drawRod(p, imgRod) {
   p.push();
-  p.translate(70, 100);
-  p.rotate(-p.PI / 8);
-  const rw = 200, rh = 50;
+  p.translate(230, 215);
+  p.scale(-1, 1);
+  // p.rotate(-p.PI / 8);
+  const rw = 170, rh = 170;
   p.image(imgRod, 0, 0, rw, rh);
   p.pop();
 }
