@@ -1,11 +1,30 @@
-import GameCanvas from "./GameCanvas";
-import "./style.css";
+import { useState } from "react";
+import TitlePage from "./pages/TitlePage";
+import DifficultyPage from "./pages/DifficultyPage";
+import TutorialPage from "./pages/TutorialPage";
+import GamePage from "./pages/GamePage";
+import "./index.css";
+import "./pages/ui.css";
 
-function App() {
+export default function App() {
+  const [page, setPage] = useState("title");
+  const [difficulty, setDifficulty] = useState("easy");
+
   return (
-    <main className="flex justify-center items-center h-screen bg-slate-900">
-      <GameCanvas />
-    </main>
+    <>
+      {page === "title"      && <TitlePage      onNext={() => setPage("tutorial")} />}
+      {page === "tutorial"   && <TutorialPage   onNext={() => setPage("difficulty")} />}
+      {page === "difficulty" && (
+        <DifficultyPage
+          onSelect={(level) => { setDifficulty(level); setPage("game"); }}
+        />
+      )}
+      {page === "game"       && (
+        <GamePage
+          difficulty={difficulty}
+          onGameOver={() => setPage("title")}
+        />
+      )}
+    </>
   );
 }
-export default App;

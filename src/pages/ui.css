@@ -1,0 +1,81 @@
+/* Área de página de 360×600 centralizada no navegador */
+.game-container {
+	width: 360px;
+	height: 600px;
+	margin: 0 auto;
+	position: relative;
+}
+
+.page {
+	width: 360px;
+	height: 600px;
+	position: relative;
+	/* para posicionar botões-overlay */
+	margin: 0 auto;
+	/* centraliza horizontalmente */
+	display: flex;
+	justify-content: center;
+	/* conteúdo ao centro-horizontal */
+	align-items: flex-end;
+	/* e no rodapé da imagem */
+	background-position: center;
+	background-repeat: no-repeat;
+	background-size: cover;
+	/* “cover” preenche sem distorcer */
+}
+
+.title-start-hotspot {
+	position: absolute;
+	width: 220px;
+	height: 70px;
+	bottom: 140px;
+	left: 70px;
+	background-color: transparent;
+	border: none;
+	cursor: pointer;
+}
+
+.tutorial-next-hotspot {
+	position: absolute;
+	width: 260px;
+	height: 100px;
+	bottom: 50px;
+	left: 50px;
+	background-color: transparent;
+	border: none;
+	cursor: pointer;
+}
+
+/* DifficultyPage – 3 botões: Fácil, Médio, Difícil */
+.difficulty-easy-hotspot {
+	position: absolute;
+	width: 210px;
+	height: 70px;
+	top: 365px;
+	left: 75px;
+	background-color: transparent;
+	border: none;
+	cursor: pointer;
+}
+
+.difficulty-medium-hotspot {
+	position: absolute;
+	width: 210px;
+	height: 70px;
+	top: 450px;
+	left: 75px;
+	background-color: transparent;
+	border: none;
+	cursor: pointer;
+}
+
+.difficulty-hard-hotspot {
+	position: absolute;
+	width: 210px;
+	height: 70px;
+	top: 530px;
+	left: 75px;
+	background-color: transparent;
+	border: none;
+	cursor: pointer;
+}
