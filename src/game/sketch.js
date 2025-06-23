@@ -2,17 +2,19 @@ import GameController from "./controllers/GameController.js";
 import C from "./constants.js";
 import bgURL     from '../assets/bg.png';
 import fisherURL from '../assets/fisher.png';
-import rodURL    from '../assets/rod.png';
+import rodURL from '../assets/rod.png';
+import hookURL from "../assets/angler.png";
 
 export default function sketch(p) {
   let game;
-  let imgBG, imgFisher, imgRod;
+  let imgBG, imgFisher, imgRod, imgHook;
 
   // 1. Preload
   p.preload = () => {
-    imgBG     = p.loadImage(bgURL);
+    imgBG = p.loadImage(bgURL);
     imgFisher = p.loadImage(fisherURL);
-    imgRod    = p.loadImage(rodURL);
+    imgRod = p.loadImage(rodURL);
+    imgHook = p.loadImage(hookURL);
   };
 
   // 2. Setup
@@ -26,7 +28,8 @@ export default function sketch(p) {
       game = new GameController(p, difficulty, onGameOver, {
         bg:     imgBG,
         fisher: imgFisher,
-        rod:    imgRod
+        rod: imgRod,
+        hook: imgHook
       });
     }
   };

@@ -15,6 +15,7 @@ export default class GameController {
 		this.imgBG = assets.bg;
 		this.imgFisher = assets.fisher;
 		this.imgRod = assets.rod;
+		this.imgHook = assets.hook;
 
 		this.hook = new Hook(p);
 		this.spawner = new Spawner(p, { easy: 0.015, medium: 0.025, hard: 0.035 }[difficulty]);
@@ -23,9 +24,9 @@ export default class GameController {
 		this.score = 0;
 		this.flashTimer = 0;
 
-		this.phase       = "countdown";   // 'countdown' → 'play'
-this.countdownMs = 5000;
-this.startTime   = p.millis();
+		this.phase = "countdown"; // 'countdown' → 'play'
+		this.countdownMs = 5000;
+		this.startTime = p.millis();
 	}
 
 	update() {
@@ -33,14 +34,14 @@ this.startTime   = p.millis();
 		const now = p.millis();
 
 		/* ----- Fase de CONTAGEM ----- */
-  if (this.phase === "countdown") {
-    this.countdownMs = 5000 - (now - this.startTime);
-    if (this.countdownMs <= 0) {
-      this.phase       = "play";
-      this.hook.state  = "descending";   // libera a física
-    }
-    return;                               // espera contador zerar
-  }
+		if (this.phase === "countdown") {
+			this.countdownMs = 5000 - (now - this.startTime);
+			if (this.countdownMs <= 0) {
+				this.phase = "play";
+				this.hook.state = "descending"; // libera a física
+			}
+			return; // espera contador zerar
+		}
 
 		/* ---------- Fase DIVING (anima a água subindo) ---------- */
 		if (this.phase === "diving") {
@@ -107,52 +108,51 @@ this.startTime   = p.millis();
 	}
 
 	draw() {
-  const p = this.p;
+		const p = this.p;
 
-  /* 1. fundo neutro ou flash */
-  p.background(this.flashTimer-- > 0 ? p.color(...C.COLORS.flash) : 30);
+		/* 1. fundo neutro ou flash */
+		p.background(this.flashTimer-- > 0 ? p.color(...C.COLORS.flash) : 30);
 
-  /* 2. sempre desenha a superfície sem scroll */
-  drawSurface(p, this.imgBG);
-  drawFisherman(p, this.imgFisher);
-  drawRod(p, this.imgRod);
+		/* 2. sempre desenha a superfície sem scroll */
+		drawSurface(p, this.imgBG);
+		drawFisherman(p, this.imgFisher);
+		drawRod(p, this.imgRod);
 
-  /* 3. contador antes de mergulhar */
-  if (this.phase === "countdown") {
-    const sec = Math.ceil(this.countdownMs / 1000);
-    p.fill(0, 180);
-    p.rect(0, 0, C.W, C.H);
-    p.fill(255);
-    p.textAlign(p.CENTER, p.CENTER);
-    p.textSize(64);
-    p.text(sec, C.W / 2, C.H / 2);
-    return;
-  }
+		/* 3. contador antes de mergulhar */
+		if (this.phase === "countdown") {
+			const sec = Math.ceil(this.countdownMs / 1000);
+			p.fill(0, 180);
+			p.rect(0, 0, C.W, C.H);
+			p.fill(255);
+			p.textAlign(p.CENTER, p.CENTER);
+			p.textSize(64);
+			p.text(sec, C.W / 2, C.H / 2);
+			return;
+		}
 
-  /* ----- MUNDO ROLÁVEL (superfície + água + peixes) ----- */
-  const camY = this.hook.y - C.H * 0.35;
-  p.push();
-  p.translate(0, -camY);
+		/* ----- MUNDO ROLÁVEL (superfície + água + peixes) ----- */
+		const camY = this.hook.y - C.H * 0.35;
+		p.push();
+		p.translate(0, -camY);
 
-  // 1) Superfície (BG, pescador, vara) — agora sobe com a câmera
-  drawSurface(p, this.imgBG);
-  drawFisherman(p, this.imgFisher);
-  drawRod(p, this.imgRod);
+		// 1) Superfície (BG, pescador, vara) — agora sobe com a câmera
+		drawSurface(p, this.imgBG);
+		drawFisherman(p, this.imgFisher);
+		drawRod(p, this.imgRod);
 
-  // 2) Água: começa em C.LAKE_Y + C.H (fora do quadro no início);
-  //    entra no viewport conforme camY cresce.
-  drawWater(p);
+		// 2) Água: começa em C.LAKE_Y + C.H (fora do quadro no início);
+		//    entra no viewport conforme camY cresce.
+		drawWater(p);
 
-  // 3) Linha + anzol + peixes (só durante 'play')
-  if (this.phase === "play") {
-    this.hook.draw();
-    this.fishes.forEach(f => f.draw());
-  }
+		// 3) Linha + anzol + peixes (só durante 'play')
+		if (this.phase === "play") {
+			this.hook.draw(this.imgHook);
+			this.fishes.forEach((f) => f.draw());
+		}
 
-  p.pop();
+		p.pop();
 
-  /* 5. HUD */
-  this.hud.draw(this.score);
-}
-
+		/* 5. HUD */
+		this.hud.draw(this.score);
+	}
 }
