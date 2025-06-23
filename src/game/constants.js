@@ -10,6 +10,12 @@ const C = {
 	PX_PER_METER: 4,
 	DEPTH_MAX_M: 500,
 
+	DEPTH_BY_DIFF: {
+		easy: 500,
+		medium: 1000,
+		hard: 2000,
+	},
+
 	DESC_SPEED_PX: 2,
 	ASC_INIT_PX: 2,
 	ASC_ACCEL: 1.001,

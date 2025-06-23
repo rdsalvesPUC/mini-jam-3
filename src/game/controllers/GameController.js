@@ -9,6 +9,7 @@ export default class GameController {
 	constructor(p, difficulty, onGameOver, assets) {
 		this.p = p;
 		this.difficulty = difficulty;
+		this.depthLimitPx = C.DEPTH_BY_DIFF[difficulty] * C.PX_PER_METER;
 		this.onGameOver = onGameOver;
 
 		// imagens pré-carregadas
@@ -94,7 +95,7 @@ export default class GameController {
 		}
 
 		// limite de profundidade
-		if (this.hook.state === "descending" && this.hook.y - C.LAKE_Y >= C.DEPTH_MAX_M * C.PX_PER_METER) {
+		if (this.hook.state === "descending" && this.hook.y - C.LAKE_Y >= this.depthLimitPx) {
 			this.hook.state = "ascending";
 			this.hook.vy = -C.ASC_INIT_PX;
 		}
